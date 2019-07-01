@@ -3,7 +3,7 @@
 	Version Number
 ##===================================================================================#
 1.4.1
-
+Creator Aaron Trandem
 ##====================================================================================
 	Instructions
 ##===================================================================================#
@@ -27,6 +27,8 @@ I run this script in task scheduler with the following directions
 *Actions: Browse to C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
 ** Argument: ./AD_Expiration.ps1
 ** Start in "C:\Scripts"
+
+Please make sure to test this in your enviroment before releasing into the production
 ##====================================================================================
 	Modules Needed
 ##===================================================================================#
