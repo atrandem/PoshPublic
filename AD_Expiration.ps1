@@ -13,6 +13,8 @@ To use this script you will need to fill in the following variables:
 Test, TestAdmin, TestRecipient, TestSender, TestSMTPServer
 #Email Variables
 BCC, Recipients, SMTPServer, Admin, Sender, HelpDesk
+#Script Variables
+ReportDate
 #Company Info Variables
 PhoneNumber, CompanyName, MSP
 
@@ -72,6 +74,7 @@ $script:7Day = @()
 $script:14Day = @()
 $script:90Day = @()
 [string]$script:Log = "C:\Scripts\Logs\PwExp\PW_Expiration_$script:LogDate.txt"
+$script:ReportDate = "Monday"
 
 #Company Info Variables
 $script:MSP = "MSP name here"
@@ -468,7 +471,7 @@ Test-LogFolder
 
 Get-ADUserInfo
 
-if ((Get-Date).DayOfWeek -eq "Monday") {
+if ((Get-Date).DayOfWeek -eq "$script:ReportDate") {
     Export-ToCSV
     Get-HTMLReport
     Send-EmailReport
