@@ -29,6 +29,7 @@ I run this script in task scheduler with the following directions
 ** Start in "C:\Scripts"
 
 Please make sure to test this in your enviroment before releasing into the production
+Testing is set to True, set to $False when implementing into production
 ##====================================================================================
 	Modules Needed
 ##===================================================================================#
