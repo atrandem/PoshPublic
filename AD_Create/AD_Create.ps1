@@ -105,7 +105,7 @@ function PreReq {
 }
 function DataPull {
 	
-	New-SFTPSession -ComputerName smitsftp.getsuperiorit.com -Credential ()
+	New-SFTPSession -ComputerName -Credential ()
 }
 function Logging102 {
     [CmdletBinding()]
