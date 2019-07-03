@@ -76,7 +76,7 @@ $Debug = $true
 $script:PickupInfo = Import-Csv C:\Scripts\Logs\InfoPickup\AdCreatePickupInfo.csv
 
 
-$script:LogPatch "C:\Scripts\Logs"
+$script:LogPath "C:\Scripts\Logs"
 $script:O365SyncServer = $script:PickupInfo.ADSyncServer
 $script:OuPath = $script:PickupInfo.OuPath
 $script:LogDate = Get-Date -Format "yyyy-MM-dd"
