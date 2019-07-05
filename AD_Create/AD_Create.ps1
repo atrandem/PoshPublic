@@ -76,7 +76,7 @@ $Debug = $true
 $script:PickupInfo = Import-Csv C:\Scripts\Logs\InfoPickup\AdCreatePickupInfo.csv
 
 
-$script:LogPath "C:\Scripts\Logs"
+$script:LogPath = "C:\Scripts\Logs"
 $script:O365SyncServer = $script:PickupInfo.ADSyncServer
 $script:OuPath = $script:PickupInfo.OuPath
 $script:LogDate = Get-Date -Format "yyyy-MM-dd"
@@ -105,7 +105,7 @@ function PreReq {
 }
 function DataPull {
 	
-	New-SFTPSession -ComputerName -Credential ()
+	#New-SFTPSession -ComputerName -Credential ()
 }
 function Logging102 {
     [CmdletBinding()]
