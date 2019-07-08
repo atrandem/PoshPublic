@@ -332,7 +332,7 @@ if ($Test -eq $True) {
     Send-MailMessage -From $script:TestSender -To $script:TestAdmin -Subject $Subject -Body $Body -Attachment $HTMLPath -DeliveryNotificationOption onFailure -SmtpServer $script:SMTPServer
 }
 else {
-    Send-MailMessage -From $script:Sender -To $Recipients -Bcc $script:Admin,$BCC -Subject $Subject -Body $Body -Attachment $HTMLPath -DeliveryNotificationOption onFailure -SmtpServer $script:SMTPServer
+    Send-MailMessage -From $script:Sender -To $Recipients -Bcc $script:BCC -Subject $Subject -Body $Body -Attachment $HTMLPath -DeliveryNotificationOption onFailure -SmtpServer $script:SMTPServer
 }
 
 }
