@@ -98,7 +98,7 @@ function Get-CDDVD {
 
     foreach ($Drive in $DriveType) {
         if ($Drive.DriveType -ne 'Fixed') {
-            $Drive.Name | Out-File -FilePath C:\Scripts\Find_CDDVD.txt
+            $Drive.Name | Out-File -FilePath C:\Scripts\Logs\Find_CDDVD.txt
         }
     }
     
