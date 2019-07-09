@@ -57,6 +57,7 @@ Version 1.0
 $script:ScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
 $script:Date= Get-Date -Format "yyyy-MM-dd"
 $script:Log = "C:\Scripts\Logs\$Date $script:ScriptName.txt"
+$LogPath = "C:\Scripts\Logs"
 
 <##====================================================================================
    FUNCTIONS
