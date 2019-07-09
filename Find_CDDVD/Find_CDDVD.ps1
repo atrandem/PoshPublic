@@ -94,7 +94,7 @@ function Test-LogFolder {
    
 }
 function Get-CDDVD {
-    $DriveType = [System.IO.DriveInfo]::GetDrives() | Select Name,DriveType
+    $DriveType = [System.IO.DriveInfo]::GetDrives() | Select-Object Name,DriveType
 
     foreach ($Drive in $DriveType) {
         if ($Drive.DriveType -ne 'Fixed') {
