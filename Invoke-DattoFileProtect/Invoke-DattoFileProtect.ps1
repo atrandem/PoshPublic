@@ -18,7 +18,7 @@ function Invoke-DattoFileProtect {
     param (
         [Parameter(Mandatory=$false)]
         [string[]]
-        $Path = "C:\kworking\DattoFileProtect"
+        $Path = "C:\Scripts\DattoFileProtect"
     )
     
     if(![System.IO.Directory]::Exists($Path)) {
@@ -31,4 +31,4 @@ function Invoke-DattoFileProtect {
 
 }
 
-
+Invoke-DattoFileProtect
