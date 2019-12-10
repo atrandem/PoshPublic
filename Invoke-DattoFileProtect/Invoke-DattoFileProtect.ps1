@@ -31,4 +31,4 @@ function Invoke-DattoFileProtect {
 
 }
 
-Invoke-DattoFileProtect
+#Invoke-DattoFileProtect
