@@ -18,11 +18,12 @@ function Invoke-DattoFileProtect {
     param (
         [Parameter(Mandatory=$false)]
         [string[]]
-        $Path = "C:\Scripts\DattoFileProtect"
+        $Path
     )
     
-    if(![System.IO.Directory]::Exists($Path)) {
-        New-Item -Path $Path -ItemType Directory
+    if ([string]::IsNullOrWhiteSpace($Path)) {
+        $scriptPath = $MyInvocation.MyCommand.Path
+        $Path = $scriptPath
     }
 
     Invoke-WebRequest -Uri "https://us.fileprotection.datto.com/update/aeb/DattoFileProtectionSetup_v8.1.0.59.exe" -OutFile "$Path\DattoFileProtect.exe" -UseBasicParsing
@@ -31,4 +32,4 @@ function Invoke-DattoFileProtect {
 
 }
 
-#Invoke-DattoFileProtect
+Invoke-DattoFileProtect
