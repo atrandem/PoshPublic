@@ -43,7 +43,7 @@ function Install-Chocolatey {
 function Install-ChocoApps {
     $CurrentFunction = ($MyInvocation.MyCommand)
 
-    $script:KaseyaNumbers = Get-Content -Path C:\Scripts\Logs\BasePrograms.txt
+    $script:KaseyaNumbers = Get-Content -Path $script:ScriptPath\BasePrograms.txt
     $script:SplitNumbers = $script:KaseyaNumbers -split ":"
     $script:InstallNumbers = $SplitNumbers
 
