@@ -27,7 +27,7 @@ function Invoke-DattoFileProtect {
 
     Invoke-WebRequest -Uri "https://us.fileprotection.datto.com/update/aeb/DattoFileProtectionSetup_v8.1.0.59.exe" -OutFile "$Path\DattoFileProtect.exe" -UseBasicParsing
     
-    Start-Process -FilePath "$Path\DattoFileProtect.exe" -ArgumentList "/install /quiet /norestart" -WhatIf -Wait
+    Start-Process -FilePath "$Path\DattoFileProtect.exe" -ArgumentList "/install /quiet /norestart" -Wait
 
 }
 
