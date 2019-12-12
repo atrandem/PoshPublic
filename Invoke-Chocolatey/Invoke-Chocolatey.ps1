@@ -214,6 +214,7 @@ function Install-DellCommand {
     
 }
 
+Out-File -FilePath $script:Log -InputObject "START"
 . ./Invoke-Logging.ps1
 Install-Chocolatey
 Start-Refresh
