@@ -1,4 +1,4 @@
-.<#
+<#
 .SYNOPSIS
     Used to standardize logging across your library of scripts
     Created By Unknown (If known contact script adjuster at atrandem@live.com)
