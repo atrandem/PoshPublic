@@ -28,11 +28,15 @@ function Install-Chocolatey {
     $PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
 
     #Choco needs this, if it doesn't exist, it will not run.
-if (!(Test-Path $profile)) {
-    New-Item -Path $profile -ItemType file -Force
-    Invoke-Logging -Message "Microsoft-Profile.ps1 is missing, created profile." -Severity Warning -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+    if (!(Test-Path $profile)) {
+        New-Item -Path $profile -ItemType file -Force
+        Invoke-Logging -Message "Microsoft-Profile.ps1 is missing, created profile." -Severity Warning -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
 
-}
+    }
+    else {
+        Invoke-Logging -Message "$Profile exists" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+
+    }
     if(![System.IO.File]::Exists("C:\ProgramData\Chocolatey\choco.exe")){
         $1 = "Chocolatey Install"
         Invoke-Logging -Message "Chocolatey is missing, Installing Chocolatey" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
