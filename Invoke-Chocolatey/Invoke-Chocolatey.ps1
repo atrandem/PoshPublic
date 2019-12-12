@@ -189,6 +189,10 @@ function Install-ChocoApps {
     }
 }
 
+#Choco needs this, if it doesn't exist, it will not run.
+if (!(Test-Path $profile)) {
+    New-Item -Path $profile -ItemType file -Force
+}
 
 . ./Invoke-Logging.ps1
 Install-Chocolatey
