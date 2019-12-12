@@ -26,7 +26,7 @@ function Start-Refresh {
 function Install-Chocolatey {
     $CurrentFunction = ($MyInvocation.MyCommand)
     $PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
-    if(![System.IO.Directory]::Exists("C:\ProgramData\Chocolatey")){
+    if(![System.IO.File]::Exists("C:\ProgramData\Chocolatey\choco.exe")){
         $1 = "Chocolatey Install"
         Invoke-Logging -Message "Chocolatey is missing, Installing Chocolatey" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
         Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) | Out-Null
