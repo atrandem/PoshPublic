@@ -67,143 +67,156 @@ function Install-ChocoApps {
     foreach ($Number in $InstallNumbers) {
 
         Invoke-Logging -Message "Kaseya Number: $Number " -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-
+        $NumberCheck = $true
         switch ($Number) {
             "1" {
-                $1 = "Chocolatey"
-                Invoke-Logging -Message "$1 was chosen for Install, this is automatically installed or upgraded. 1 is a depricated install"`
-                 -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log                                
+                $InstallName = "Chocolatey"
+                Invoke-Logging -Message "$InstallName was chosen for Install, this is automatically installed or upgraded. 1 is a depricated install"`
+                 -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+                 $NumberCheck = $false                             
             }
             "2" {
-                $2 = "7 Zip"
-                Invoke-Logging -Message "$2 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade 7zip -y
-                Invoke-Logging -Message "Install $2 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "7 Zip"
+                $InstallCommand = "7zip"
                 
             }
             "3" {
-                $3 = "Adobe Reader"
-                Invoke-Logging -Message "$3 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade adobereader -y
-                Invoke-Logging -Message "Install $3 Command finished" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "Adobe Reader"
+                $InstallCommand = "adobereader"
             }
             "4" {
-                $4 = "Firefox"
-                Invoke-Logging -Message "$4 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade firefox -y
-                Invoke-Logging -Message "Install $4 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "Firefox"
+                $InstallCommand = "firefox"
             }
             "5" {
-                $5 = "Firefox ESR"
-                Invoke-Logging -Message "$5 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade firefox esr -y
-                Invoke-Logging -Message "Install $5 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "Firefox ESR"
+                $InstallCommand = "firefox esr"
             }
             "6" {
-                $6 = "Flash Player PPAPI"
-                Invoke-Logging -Message "$6 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade flashplayerppapi -y
-                Invoke-Logging -Message "Install $6 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "Flash Player PPAPI"
+                $InstallCommand = "flashplayerppapi"
             }
             "7" {
-                $7 = "Google Chrome"
-                Invoke-Logging -Message "$7 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade googlechrome -y
-                Invoke-Logging -Message "Install $7 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "Google Chrome"
+                $InstallCommand = "googlechrome"
             }
             "8" {
-                $8 = "Oracle Java"
-                Invoke-Logging -Message "$8 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade javaruntime -y
-                Invoke-Logging -Message "Install $8 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "Oracle Java"
+                $InstallCommand = "javaruntime"
             }
             "9" {
-                $9 = "MalwareBytes"
-                Invoke-Logging -Message "$9 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade malwarebytes -y
-                Invoke-Logging -Message "Install $9 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "MalwareBytes"
+                $InstallCommand = "malwarebytes"
             }
             "10" {
-                $10 = "Open JDK 12"
-                Invoke-Logging -Message "$10 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade openjdk12 -y
-                Invoke-Logging -Message "Install $10 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "Open JDK 12"
+                $InstallCommand = "openjdk12"
             }
             "11" {
-                $11 = "SilverLight"
-                Invoke-Logging -Message "$11 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade silverlight -y
-                Invoke-Logging -Message "Install $11 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "SilverLight"
+                $InstallCommand = "silverlight"
             }
             "12" {
-                $12 = "Team Viewer 14"
-                Invoke-Logging -Message "$12 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade teamviewer -y
-                Invoke-Logging -Message "Install $12 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "Team Viewer 14"
+                $InstallCommand = "teamviewer"
             }
             "13" {
-                $13 = "WindirStat"
-                Invoke-Logging -Message "$13 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade windirstat -y
-                Invoke-Logging -Message "Install $13 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "WindirStat"
+                $InstallCommand = "windirstat"
             }
             "14" {
-                $14 = "WizTree"
-                Invoke-Logging -Message "$14 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade wiztree -y
-                Invoke-Logging -Message "Install $14 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "WizTree"
+                $InstallCommand = "wiztree"
             }
             "15" {
-                $15 = "FortiClient"
-                Invoke-Logging -Message "$15 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade forticlientvpn -y
-                Invoke-Logging -Message "Install $15 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "FortiClient"
+                $InstallCommand = "forticlientvpn"
             }
             "16" {
-                $16 = "Putty"
-                Invoke-Logging -Message "$16 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade forticlientvpn -y
-                Invoke-Logging -Message "Install $16 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "Putty"
+                $InstallCommand = "putty"
             }
             "17" {
-                $17 = "VLC"
-                Invoke-Logging -Message "$17 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade vlc -y
-                Invoke-Logging -Message "Install $17 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "VLC"
+                $InstallCommand = "vlc"
             }
             "18" {
-                $17 = "Foxit Reader"
-                Invoke-Logging -Message "$17 was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                choco upgrade foxitreader -y
-                Invoke-Logging -Message "Install $17 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-                Clear-Variable -Name "Number"
+                $InstallName = "Foxit Reader"
+                $InstallCommand = "foxitreader"
+            }
+            "19" {
+                $InstallName = "MXIE PGC"
+                $InstallCommand = ""
+                $NumberCheck = $false
+            }
+            "20" {
+                $InstallName = "MXIE NTUM"
+                $InstallCommand = ""
+                $NumberCheck = $false
+            }
+            "21" {
+                $InstallName = "MXIE Supeiror"
+                $InstallCommand = ""
+                $NumberCheck = $false
+            }
+            "22" {
+                $InstallName = "Office 365 Business Premium"
+                $InstallCommand = ""
+                $NumberCheck = $false
+            }
+            "23" {
+                $InstallName = "Office 2019 Home and Business"
+                $InstallCommand = ""
+                $NumberCheck = $false
+            }
+            "24" {
+                $InstallName = "M-Files PGC"
+                $InstallCommand = ""
+                $NumberCheck = $false
+            }
+            "25" {
+                $InstallName = "CheckPoint 80.10 PGC"
+                $InstallCommand = ""
+                $NumberCheck = $false
+            }
+            "26" {
+                $InstallName = "Last Pass"
+                $InstallCommand = "lastpass"
             }
 
-            Default {Invoke-Logging -Message "No matching numbers" -Severity Warning -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log}
+            Default {
+                $NumberCheck = $false
+                Invoke-Logging -Message "No matching numbers" -Severity Warning -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            }
         }
+        if ($Numbercheck) {
+            Invoke-Logging -Message "$InstallName was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Start-process choco -ArgumentList "upgrade $InstallCommand --confirm" -Wait
+            Invoke-Logging -Message "$InstallName was chosen, $InstallCommand command finished, check choco logs for details" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Clear-Variable -Name "Number","InstallName","InstallCommand","NumberCheck"
+        }
+
     }
+}
+
+function Install-DellCommand {
+
+    $BIOS = Get-CimInstance -ClassName Win32_BIOS
+    $Manufacturer = $BIOS.Manufacturer
+
+    if ($Manufacturer -contains "Dell") {
+        Invoke-Logging -Message "This is a Dell Computer, installing/updating Dell Command" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+        Start-Process choco -ArgumentList "upgrade dellcommandupdate --comfirm"
+        Invoke-Logging -Message "Dell command choco command has run" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+    }
+    
 }
 
 . ./Invoke-Logging.ps1
 Install-Chocolatey
 Start-Refresh
 Install-ChocoApps
+Install-DellCommand
 
 #For purposes of My RMM tool, this is for me to recognize when it needs to go next. Not needed otherwise.
 Out-File -FilePath $script:Log -Append -InputObject "Aaron says go next!"
