@@ -13,7 +13,7 @@
     General notes
 #>
 $script:LogDate = Get-Date -Format "yyyy-MM-dd"
-$script:ScriptPath = $MyInvocation.PSScriptRoot
+$script:ScriptPath = $PSScriptRoot
 $script:Log = "$script:ScriptPath\ChocoLog.log"
 $script:Debug = $false
 function Start-Refresh {
