@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Short description
+    Install using Chocolatey or PS/RMM tool. Created By Aaron Trandem
 .DESCRIPTION
     Long description
 .EXAMPLE
