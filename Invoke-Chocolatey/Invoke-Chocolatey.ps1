@@ -1,18 +1,3 @@
-<#
-.SYNOPSIS
-    Short description
-.DESCRIPTION
-    Long description
-.EXAMPLE
-    Explanation of what the example does
-.INPUTS
-    Inputs (if any)
-.OUTPUTS
-    Output (if any)
-.NOTES
-    General notes
-#>
-
 
 $script:LogDate = Get-Date -Format "yyyy-MM-dd"
 $script:ScriptPath = $MyInvocation.PSScriptRoot
