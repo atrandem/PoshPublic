@@ -189,6 +189,8 @@ function Install-ChocoApps {
                 Invoke-Logging -Message "No matching numbers" -Severity Warning -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
             }
         }
+        #Checks if number is $true, if so it will continue to install using choco.
+        #If $false, it will either call another PS script or the install relies on another tool
         if ($Numbercheck) {
             Invoke-Logging -Message "$InstallName was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
             Start-process choco -ArgumentList "upgrade $InstallCommand --confirm" -Wait
