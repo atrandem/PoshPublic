@@ -189,7 +189,7 @@ function Install-ChocoApps {
     }
 }
 
-Set-ExecutionPolicy Bypass -Force
+
 . ./Invoke-Logging.ps1
 Install-Chocolatey
 Start-Refresh
