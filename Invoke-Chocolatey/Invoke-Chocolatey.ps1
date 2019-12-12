@@ -18,11 +18,14 @@ $script:Log = "$script:ScriptPath\ChocoLog.log"
 $script:Debug = $false
 function Start-Refresh {
     $CurrentFunction = ($MyInvocation.MyCommand)
+    $PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
     Invoke-Logging -Message "Starting Envriomental Variable Refresh" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
     Invoke-Logging -Message "Envriomental Variable Completed" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log 
 }
 function Install-Chocolatey {
+    $CurrentFunction = ($MyInvocation.MyCommand)
+    $PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
     if(![System.IO.Directory]::Exists("C:\ProgramData\Chocolatey")){
         $1 = "Chocolatey Install"
         Invoke-Logging -Message "Chocolatey is missing, Installing Chocolatey" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
@@ -40,6 +43,7 @@ function Install-Chocolatey {
 }
 function Install-ChocoApps {
     $CurrentFunction = ($MyInvocation.MyCommand)
+    $PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
 
     $script:KaseyaNumbers = Get-Content -Path $script:ScriptPath\BasePrograms.txt
     $script:SplitNumbers = $script:KaseyaNumbers -split ":"
