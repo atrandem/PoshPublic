@@ -129,3 +129,4 @@ if (!([string]::IsNullOrEmpty($NewName))) {
 
 }
 
+Rename-Computer
