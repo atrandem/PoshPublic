@@ -2,18 +2,21 @@
 .SYNOPSIS
     Install using Chocolatey or PS/RMM tool. Created By Aaron Trandem
 .DESCRIPTION
-    Long description
+    This PowerShell script will use Chocolatey to install multiple types of applications or upgrade them.
+    To use this correctly you'll need to make sure that a text file exists (BasePrograms.txt) and it has
+    numbers in it that associate with the numbers in the switch. Each number should be seperated by a : to
+    allow for multi digit numbers. This will get those numbers, run through the switch and install/upgrade
+    the application. Currently there are no parameters that will allow user input. In the future this could
+    come to be.
 .EXAMPLE
-    Explanation of what the example does
+    Invoke-Chocolatey.ps1
 .INPUTS
     Inputs (if any)
 .OUTPUTS
-    Output (if any)
+    ChocoLog.log is created in the location that the script is run.
 .NOTES
     General notes
 #>
-
-
 
 function Install-ChocoApps {
     $CurrentFunction = ($MyInvocation.MyCommand)
