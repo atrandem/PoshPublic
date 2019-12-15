@@ -12,54 +12,57 @@
 .NOTES
     General notes
 #>
-$script:LogDate = Get-Date -Format "yyyy-MM-dd"
-$script:ScriptPath = $PSScriptRoot
-$script:Log = "$script:ScriptPath\ChocoLog.log"
-$script:Debug = $false
-function Start-Refresh {
-    $CurrentFunction = ($MyInvocation.MyCommand)
-    $PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
-    Invoke-Logging -Message "Starting Envriomental Variable Refresh" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-    Invoke-Logging -Message "Envriomental Variable Completed" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log 
-}
-function Install-Chocolatey {
-    $CurrentFunction = ($MyInvocation.MyCommand)
-    $PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
 
-    #Choco needs this, if it doesn't exist, it will not run.
-    if (!(Test-Path $profile)) {
-        New-Item -Path $profile -ItemType file -Force
-        Invoke-Logging -Message "Microsoft-Profile.ps1 is missing, created profile." -Severity Warning -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
 
-    }
-    else {
-        Invoke-Logging -Message "$Profile exists" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
 
-    }
-    if(![System.IO.File]::Exists("C:\ProgramData\Chocolatey\choco.exe")){
-        $1 = "Chocolatey Install"
-        Invoke-Logging -Message "Chocolatey is missing, Installing Chocolatey" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-        Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) | Out-Null
-        Start-Sleep 60
-    }
-    else {
-            
-            Invoke-Logging -Message "Chocolatey will check for upgrades" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-            choco upgrade chocolatey -y
-            Start-Sleep 20
-            Invoke-Logging -Message "Upgrading $1 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-    }
-    
-}
 function Install-ChocoApps {
     $CurrentFunction = ($MyInvocation.MyCommand)
     $PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
 
+    #Constant Variables
     $script:KaseyaNumbers = Get-Content -Path $script:ScriptPath\BasePrograms.txt
     $script:SplitNumbers = $script:KaseyaNumbers -split ":"
     $script:InstallNumbers = $SplitNumbers
+    $script:LogDate = Get-Date -Format "yyyy-MM-dd"
+    $script:ScriptPath = $PSScriptRoot
+    $script:Log = "$script:ScriptPath\ChocoLog.log"
+    $script:Debug = $false
 
+    #Call other needed Powershell Scripts
+    . ./Invoke-Logging
+
+        #Choco needs this, if it doesn't exist, it will not run.
+        if (!(Test-Path $profile)) {
+            New-Item -Path $profile -ItemType file -Force
+            Invoke-Logging -Message "Microsoft-Profile.ps1 is missing, created profile." -Severity Warning -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+    
+        }
+        else {
+            Invoke-Logging -Message "$Profile exists" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+    
+        }
+        #Check if Choco is installed, if not install it, if so upgrade it
+        if(![System.IO.File]::Exists("C:\ProgramData\Chocolatey\choco.exe")){
+            
+            $1 = "Chocolatey Install"
+            Invoke-Logging -Message "Chocolatey is missing, Installing Chocolatey" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) | Out-Null
+            Start-Sleep 60
+    
+            #Refresh the Envriomental variables
+            Invoke-Logging -Message "Starting Envriomental Variable Refresh" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+            Invoke-Logging -Message "Envriomental Variable Completed" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log 
+        }
+        else {
+                
+                Invoke-Logging -Message "Chocolatey will check for upgrades" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+                choco upgrade chocolatey -y
+                Start-Sleep 20
+                Invoke-Logging -Message "Upgrading $1 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+        }
+
+    #Logging data given by Kaseya
     Invoke-Logging -Message "Kaseya Numbers are - $script:KaseyaNumbers" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
     Invoke-Logging -Message "Install Numbers are - $script:InstallNumbers" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
     Invoke-Logging -Message "Any Information for logging check Chocolateys auto generated log files C:\ProgramData\Chocolatey" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
@@ -198,28 +201,20 @@ function Install-ChocoApps {
             Clear-Variable -Name "Number","InstallName","InstallCommand","NumberCheck"
         }
 
+        #install Dell Command Update if this is a Dell computer  
+        $BIOS = Get-CimInstance -ClassName Win32_BIOS
+        $Manufacturer = $BIOS.Manufacturer
+
+        if ($Manufacturer -contains "Dell") {
+            Invoke-Logging -Message "This is a Dell Computer, installing/updating Dell Command" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Start-Process choco -ArgumentList "upgrade dellcommandupdate --comfirm"
+            Invoke-Logging -Message "Dell command choco command has run" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+        }
+
     }
-}
-
-function Install-DellCommand {
-
-    $BIOS = Get-CimInstance -ClassName Win32_BIOS
-    $Manufacturer = $BIOS.Manufacturer
-
-    if ($Manufacturer -contains "Dell") {
-        Invoke-Logging -Message "This is a Dell Computer, installing/updating Dell Command" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-        Start-Process choco -ArgumentList "upgrade dellcommandupdate --comfirm"
-        Invoke-Logging -Message "Dell command choco command has run" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-    }
-    
 }
 
 Out-File -FilePath $script:Log -InputObject "START"
-. ./Invoke-Logging.ps1
-Install-Chocolatey
-Start-Refresh
 Install-ChocoApps
-Install-DellCommand
-
 #For purposes of My RMM tool, this is for me to recognize when it needs to go next. Not needed otherwise.
 Out-File -FilePath $script:Log -Append -InputObject "Aaron says go next!"
