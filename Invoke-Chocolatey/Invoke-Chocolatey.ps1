@@ -39,48 +39,48 @@ function Install-ChocoApps {
         #Choco needs this, if it doesn't exist, it will not run.
         if (!(Test-Path $profile)) {
             New-Item -Path $profile -ItemType file -Force
-            Invoke-Logging -Message "Microsoft-Profile.ps1 is missing, created profile." -Severity Warning -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Invoke-Logging -Message "Microsoft-Profile.ps1 is missing, created profile." -Severity Warning -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
     
         }
         else {
-            Invoke-Logging -Message "$Profile exists" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Invoke-Logging -Message "$Profile exists" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
     
         }
         #Check if Choco is installed, if not install it, if so upgrade it
         if(![System.IO.File]::Exists("C:\ProgramData\Chocolatey\choco.exe")){
             
             $1 = "Chocolatey Install"
-            Invoke-Logging -Message "Chocolatey is missing, Installing Chocolatey" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Invoke-Logging -Message "Chocolatey is missing, Installing Chocolatey" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
             Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) | Out-Null
             Start-Sleep 60
     
             #Refresh the Envriomental variables
-            Invoke-Logging -Message "Starting Envriomental Variable Refresh" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Invoke-Logging -Message "Starting Envriomental Variable Refresh" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
             $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-            Invoke-Logging -Message "Envriomental Variable Completed" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log 
+            Invoke-Logging -Message "Envriomental Variable Completed" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log 
         }
         else {
                 
-                Invoke-Logging -Message "Chocolatey will check for upgrades" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+                Invoke-Logging -Message "Chocolatey will check for upgrades" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
                 choco upgrade chocolatey -y
                 Start-Sleep 20
-                Invoke-Logging -Message "Upgrading $1 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+                Invoke-Logging -Message "Upgrading $1 Command finished." -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
         }
 
     #Logging data given by Kaseya
-    Invoke-Logging -Message "Kaseya Numbers are - $script:KaseyaNumbers" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-    Invoke-Logging -Message "Install Numbers are - $script:InstallNumbers" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
-    Invoke-Logging -Message "Any Information for logging check Chocolateys auto generated log files C:\ProgramData\Chocolatey" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+    Invoke-Logging -Message "Kaseya Numbers are - $script:KaseyaNumbers" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
+    Invoke-Logging -Message "Install Numbers are - $script:InstallNumbers" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
+    Invoke-Logging -Message "Any Information for logging check Chocolateys auto generated log files C:\ProgramData\Chocolatey" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
 
     foreach ($Number in $InstallNumbers) {
 
-        Invoke-Logging -Message "Kaseya Number: $Number " -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+        Invoke-Logging -Message "Kaseya Number: $Number " -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
         $NumberCheck = $true
         switch ($Number) {
             "1" {
                 $InstallName = "Chocolatey"
                 Invoke-Logging -Message "$InstallName was chosen for Install, this is automatically installed or upgraded. 1 is a depricated install"`
-                 -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+                 -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
                  $NumberCheck = $false                             
             }
             "2" {
@@ -194,15 +194,15 @@ function Install-ChocoApps {
 
             Default {
                 $NumberCheck = $false
-                Invoke-Logging -Message "No matching numbers" -Severity Warning -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+                Invoke-Logging -Message "No matching numbers" -Severity Warning -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
             }
         }
         #Checks if number is $true, if so it will continue to install using choco.
         #If $false, it will either call another PS script or the install relies on another tool
         if ($Numbercheck) {
-            Invoke-Logging -Message "$InstallName was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Invoke-Logging -Message "$InstallName was chosen for install" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
             Start-process choco -ArgumentList "upgrade $InstallCommand --confirm" -Wait
-            Invoke-Logging -Message "$InstallName was chosen, $InstallCommand command finished, check choco logs for details" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Invoke-Logging -Message "$InstallName was chosen, $InstallCommand command finished, check choco logs for details" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
             Clear-Variable -Name "Number","InstallName","InstallCommand","NumberCheck"
         }
 
@@ -211,9 +211,9 @@ function Install-ChocoApps {
         $Manufacturer = $BIOS.Manufacturer
 
         if ($Manufacturer -contains "Dell") {
-            Invoke-Logging -Message "This is a Dell Computer, installing/updating Dell Command" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Invoke-Logging -Message "This is a Dell Computer, installing/updating Dell Command" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
             Start-Process choco -ArgumentList "upgrade dellcommandupdate --comfirm"
-            Invoke-Logging -Message "Dell command choco command has run" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $Log
+            Invoke-Logging -Message "Dell command choco command has run" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName -$PowershellScriptName -Log $script:Log
         }
 
     }
