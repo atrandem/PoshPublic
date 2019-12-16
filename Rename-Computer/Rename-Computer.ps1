@@ -77,7 +77,7 @@ if ([string]::IsNullOrEmpty($NewName)) {
 
     #Get the list of names that Kaseya has given and make sure nothing is matching. If it does, we need to increment the last number
     #Quick check that machName.txt exists, if it doesn't, we stop the renaming script
-    if (!(Test-Path -Path "$ScriptPath\machName.txt")) {
+    if (!(Test-Path -Path "$script:ScriptPath\RawMachines.txt")) {
         Invoke-Logging -Message "The machine names text file is missing. Renaming the machine will stop, manual renaming will need to be done"`
          -Severity Error -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
         $host.Exit()
@@ -85,13 +85,13 @@ if ([string]::IsNullOrEmpty($NewName)) {
     #Currently, Kaseya drops a text file that is not how we need it to be to read it correctly
     #This is where we will adjust and create an readable list of machine names
     #Collects the raw data of names Kaseya created
-    $RawNames = Get-Content "C:\kworking\RawNames.txt"
+    $RawNames = Get-Content "$script:ScriptPath\RawNames.txt"
     #Splits each name into its own line using the splitting by ", "
     $FullName = $RawNames -split (", ")
 
     foreach ($a in $FullName) {
     #Takes all characters before the first "." and appends it to a file.
-    $a.Substring(0,$a.IndexOf(".")) | Out-File -FilePath "$ScriptPath\machNames.txt" -Append
+    $a.Substring(0,$a.IndexOf(".")) | Out-File -FilePath "$script:ScriptPath\machNames.txt" -Append
     }
 
     #Clear $a for reuse
