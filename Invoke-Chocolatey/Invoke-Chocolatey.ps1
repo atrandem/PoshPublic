@@ -33,7 +33,8 @@ function Install-ChocoApps {
     $script:Debug = $false
 
     #Call other needed Powershell Scripts
-    . ./Invoke-Logging
+    $ExternalMethod = $PSScriptRoot + ".\Invoke-Logging.ps1"
+    .$ExternalMethod
 
         #Choco needs this, if it doesn't exist, it will not run.
         if (!(Test-Path $profile)) {
