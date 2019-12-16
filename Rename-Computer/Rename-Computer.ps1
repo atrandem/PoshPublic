@@ -113,23 +113,15 @@ function Rename-Computer {
             Invoke-Logging -Message "Inside do until Loop" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
             $NewName = "$Chassis-$DateName-$LastNumber"
             Invoke-Logging -Message "New Name: $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
+            $LastNumber++
 
-            if (!($machName -match "$NewName")) {
-                Invoke-Logging -Message "Using Number: $LastNumber Succeded, Using name: $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
-                $NameCheck = $true
-                Break
-            }
-            else {
-                Invoke-Logging -Message "Using Number: $LastNumber failed trying next number" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
-                $LastNumber++
-            }
             
-        } while ($NameCheck -eq $false)
+        } while (!($machName -match "$NewName"))
 
         Invoke-Logging -Message "Autobot chose computer name - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
 
     }
-        Break
+
 
         #Rename's computer no reboot / also does one last check to make sure all variables exist
 
