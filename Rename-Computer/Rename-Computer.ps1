@@ -57,7 +57,6 @@ if (!([string]::IsNullOrEmpty($NewName))) {
     Invoke-Logging -Message "Manually renaming computer to - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
 }
 else {
-    Invoke-Logging -Message "Manually renaming computer to - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
     #This gets the chassis type, example laptop, NUC, Desktop
     Get-Chassis
     If($isLaptop) { 
