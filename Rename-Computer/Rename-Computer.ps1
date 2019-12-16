@@ -97,7 +97,7 @@ if ([string]::IsNullOrEmpty($NewName)) {
     #Clear $a for reuse
     Clear-Variable -Name "a"
     #Grab the list of readable names.
-    $machName = Get-Content -Path "$ScriptPath\machNames2.txt"
+    $machName = Get-Content -Path "$ScriptPath\machNames.txt"
     #Compare the name we created to the list of names from machNames.txt
     $NameCheck = $false
     do {
