@@ -77,10 +77,13 @@ if ([string]::IsNullOrEmpty($NewName)) {
 
     #Get the list of names that Kaseya has given and make sure nothing is matching. If it does, we need to increment the last number
     #Quick check that machName.txt exists, if it doesn't, we stop the renaming script
-    if (!(Test-Path -Path "$script:ScriptPath\RawMachines.txt")) {
-        Invoke-Logging -Message "The RawMachines.txt file is missing. Renaming the machine will stop, manual renaming will need to be done"`
+    if (!(Test-Path -Path "$script:ScriptPath\RawNames.txt")) {
+        Invoke-Logging -Message "The RawNames.txt file is missing. Renaming the machine will stop, manual renaming will need to be done"`
          -Severity Error -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
         $host.Exit()
+    }
+    else {
+        Invoke-Logging -Message "RawNames.txt was found" -Severity Information -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
     }
     #Currently, Kaseya drops a text file that is not how we need it to be to read it correctly
     #This is where we will adjust and create an readable list of machine names
@@ -89,25 +92,30 @@ if ([string]::IsNullOrEmpty($NewName)) {
     #Splits each name into its own line using the splitting by ", "
     $FullName = $RawNames -split (", ")
 
+    Invoke-Logging -Message "Starting foreach loop" -Severity Information -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
     foreach ($a in $FullName) {
     #Takes all characters before the first "." and appends it to a file.
     $a.Substring(0,$a.IndexOf(".")) | Out-File -FilePath "$script:ScriptPath\machNames.txt" -Append
     }
-
+    Invoke-Logging -Message "Finished foreach loop" -Severity Information -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
     #Clear $a for reuse
     Clear-Variable -Name "a"
+    Invoke-Logging -Message "Cleared Variable a" -Severity Information -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
     #Grab the list of readable names.
     $machName = Get-Content -Path "$ScriptPath\machNames.txt"
     #Compare the name we created to the list of names from machNames.txt
+    Invoke-Logging -Message "Starting do until Loop" -Severity Information -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
     $NameCheck = $false
     do {
 
         $NewName = "$Chassis-$DateName-$LastNumber"
 
         if (!($machName -match "$NewName")) {
+            Invoke-Logging -Message "Using Number: $LastNumber Succeded, Using name: $NewName" -Severity Information -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
             $NameCheck = $true
         }
         else {
+            Invoke-Logging -Message "Using Number: $LastNumber failed trying next number" -Severity Information -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
             $LastNumber++
         }
         
@@ -122,7 +130,7 @@ else {
 
 #Rename's computer no reboot / also does one last check to make sure all variables exist
 if (!([string]::IsNullOrEmpty($NewName))) {
-    Rename-Computer -Force -NewName "$NewName"
+    Rename-Computer -NewName "$NewName"
     Invoke-Logging -Message "Computer has been renamed to $NewName" -Severity Information -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
 }
 
