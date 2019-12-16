@@ -17,7 +17,8 @@
 .NOTES
     General notes
 #>
-
+#Script Global Variables
+$script:Log = "$script:ScriptPath\ChocoLog.log"
 function Install-ChocoApps {
     $CurrentFunction = ($MyInvocation.MyCommand)
     $PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
@@ -28,7 +29,6 @@ function Install-ChocoApps {
     $script:InstallNumbers = $SplitNumbers
     $script:LogDate = Get-Date -Format "yyyy-MM-dd"
     $script:ScriptPath = $PSScriptRoot
-    $script:Log = "$script:ScriptPath\ChocoLog.log"
     $script:Debug = $false
 
     #Call other needed Powershell Scripts
