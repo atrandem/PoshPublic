@@ -25,7 +25,7 @@ function Install-ChocoApps {
     $PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
 
     #Constant Variables
-    $script:Log = "$script:PSScriptRoot\ChocoLog.log"
+    $script:Log = "$script:PSScriptRoot\$PowershellScriptName.log"
     $script:KaseyaNumbers = Get-Content -Path $script:ScriptPath\BasePrograms.txt
     $script:SplitNumbers = $script:KaseyaNumbers -split ":"
     $script:InstallNumbers = $SplitNumbers
