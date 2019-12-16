@@ -107,8 +107,9 @@ if ([string]::IsNullOrEmpty($NewName)) {
     Invoke-Logging -Message "Starting do until Loop" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
     $NameCheck = $false
     do {
-
+        Invoke-Logging -Message "Inside do until Loop" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
         $NewName = "$Chassis-$DateName-$LastNumber"
+        Invoke-Logging -Message "New Name: $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
 
         if (!($machName -match "$NewName")) {
             Invoke-Logging -Message "Using Number: $LastNumber Succeded, Using name: $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
