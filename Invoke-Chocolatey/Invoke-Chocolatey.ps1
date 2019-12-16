@@ -18,13 +18,14 @@
     General notes
 #>
 #Script Global Variables
-$script:Log = "$script:ScriptPath\ChocoLog.log"
+
 $script:ScriptPath = $PSScriptRoot
 function Install-ChocoApps {
     $CurrentFunction = ($MyInvocation.MyCommand)
     $PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
 
     #Constant Variables
+    $script:Log = "$script:ScriptPath\ChocoLog.log"
     $script:KaseyaNumbers = Get-Content -Path $script:ScriptPath\BasePrograms.txt
     $script:SplitNumbers = $script:KaseyaNumbers -split ":"
     $script:InstallNumbers = $SplitNumbers
