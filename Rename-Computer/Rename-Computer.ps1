@@ -129,7 +129,7 @@ function Rename-Computer {
         Invoke-Logging -Message "Autobot chose computer name - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
 
     }
-    
+        Break
 
         #Rename's computer no reboot / also does one last check to make sure all variables exist
 
