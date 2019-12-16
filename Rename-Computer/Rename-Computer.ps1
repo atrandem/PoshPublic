@@ -78,7 +78,7 @@ if ([string]::IsNullOrEmpty($NewName)) {
     #Get the list of names that Kaseya has given and make sure nothing is matching. If it does, we need to increment the last number
     #Quick check that machName.txt exists, if it doesn't, we stop the renaming script
     if (!(Test-Path -Path "$script:ScriptPath\RawMachines.txt")) {
-        Invoke-Logging -Message "The machine names text file is missing. Renaming the machine will stop, manual renaming will need to be done"`
+        Invoke-Logging -Message "The RawMachines.txt file is missing. Renaming the machine will stop, manual renaming will need to be done"`
          -Severity Error -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
         $host.Exit()
     }
