@@ -217,7 +217,6 @@ function Install-ChocoApps {
     }
 }
 
-Out-File -FilePath $script:Log -InputObject "START"
+
 Install-ChocoApps
-#For purposes of My RMM tool, this is for me to recognize when it needs to go next. Not needed otherwise.
-Out-File -FilePath $script:Log -Append -InputObject "Aaron says go next!"
+
