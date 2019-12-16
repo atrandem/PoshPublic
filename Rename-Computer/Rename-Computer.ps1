@@ -53,7 +53,11 @@ $script:Log = "$script:ScriptPath\$PowershellScriptName.log"
 $ComputerName = $env:COMPUTERNAME
 Invoke-Logging -Message "The current Computer Name is - $ComputerName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
 
-if ([string]::IsNullOrEmpty($NewName)) {
+if (!([string]::IsNullOrEmpty($NewName))) {
+    Invoke-Logging -Message "Manually renaming computer to - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
+}
+else {
+    Invoke-Logging -Message "Manually renaming computer to - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
     #This gets the chassis type, example laptop, NUC, Desktop
     Get-Chassis
     If($isLaptop) { 
@@ -125,9 +129,6 @@ if ([string]::IsNullOrEmpty($NewName)) {
 
     Invoke-Logging -Message "Autobot chose computer name - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
 
-}
-else {
-    Invoke-Logging -Message "Manually renaming computer to - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
 }
 
 #Rename's computer no reboot / also does one last check to make sure all variables exist
