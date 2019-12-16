@@ -118,7 +118,7 @@ else {
         if (!($machName -match "$NewName")) {
             Invoke-Logging -Message "Using Number: $LastNumber Succeded, Using name: $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
             $NameCheck = $true
-            Break;
+            Break
         }
         else {
             Invoke-Logging -Message "Using Number: $LastNumber failed trying next number" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
