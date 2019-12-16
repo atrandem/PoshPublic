@@ -113,6 +113,7 @@ if ([string]::IsNullOrEmpty($NewName)) {
         if (!($machName -match "$NewName")) {
             Invoke-Logging -Message "Using Number: $LastNumber Succeded, Using name: $NewName" -Severity Information -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
             $NameCheck = $true
+            Break;
         }
         else {
             Invoke-Logging -Message "Using Number: $LastNumber failed trying next number" -Severity Information -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
