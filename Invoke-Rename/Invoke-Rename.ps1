@@ -47,8 +47,11 @@ function Invoke-Rename {
     $script:Log = "$script:ScriptPath\$PowershellScriptName.log"
 
     #Calling Custom Powershell Functions
-    . .\Invoke-Logging.ps1
-    . .\Get-Chassis.ps1
+
+    $ExternalMethod = $PSScriptRoot + ".\Invoke-Logging.ps1"
+    .$ExternalMethod
+    $ExternalMethod = $PSScriptRoot + ".\Get-Chassis.ps1"
+    .$ExternalMethod
 
     $ComputerName = $env:COMPUTERNAME
     Invoke-Logging -Message "The current Computer Name is - $ComputerName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
@@ -105,7 +108,7 @@ function Invoke-Rename {
         Clear-Variable -Name "a"
         Invoke-Logging -Message "Cleared Variable a" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
         #Grab the list of readable names.
-        $machName = Get-Content -Path "$ScriptPath\machNames.txt"
+        $machName = Get-Content -Path "$script:ScriptPath\machNames.txt"
         #First official NewName
         $NewName = "$Chassis-$DateName-$LastNumber"
         #Compare the name we created to the list of names from machNames.txt
