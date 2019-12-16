@@ -122,7 +122,7 @@ else {
 
 #Rename's computer no reboot / also does one last check to make sure all variables exist
 if (!([string]::IsNullOrEmpty($NewName))) {
-    Rename-Computer -NewName $NewName -Force
+    Rename-Computer -Force -NewName "$NewName"
     Invoke-Logging -Message "Computer has been renamed to $NewName" -Severity Information -Log $Log -FunctionName $CurrentFunction -$PowershellScriptName
 }
 
