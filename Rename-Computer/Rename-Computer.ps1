@@ -116,7 +116,7 @@ function Rename-Computer {
             $LastNumber++
 
             
-        } while (!($machName -match "$NewName"))
+        } while ($machName -match "$NewName")
 
         Invoke-Logging -Message "Autobot chose computer name - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
 
