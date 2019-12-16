@@ -115,7 +115,7 @@ function Rename-Computer {
 
             Invoke-Logging -Message "New Name: $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
         }
-
+        Break
         Invoke-Logging -Message "Autobot chose computer name - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
 
     }
