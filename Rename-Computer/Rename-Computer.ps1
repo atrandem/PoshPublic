@@ -125,7 +125,7 @@ else {
             $LastNumber++
         }
         
-    } until ($NameCheck -eq $true)
+    } while ($NameCheck -eq $false)
 
     Invoke-Logging -Message "Autobot chose computer name - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
 
