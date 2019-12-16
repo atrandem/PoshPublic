@@ -33,7 +33,7 @@
 .NOTES
     General notes
 #>
-function Rename-Computer {
+function Invoke-Rename {
 
     [CmdletBinding()]
     param (
@@ -126,4 +126,4 @@ function Rename-Computer {
 
 }
 
-Rename-Computer
+Invoke-Rename
