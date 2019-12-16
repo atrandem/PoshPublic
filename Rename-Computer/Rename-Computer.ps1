@@ -107,9 +107,8 @@ function Rename-Computer {
         #Grab the list of readable names.
         $machName = Get-Content -Path "$ScriptPath\machNames.txt"
         #Compare the name we created to the list of names from machNames.txt
-        $NumberCheck = $false
         Invoke-Logging -Message "Starting do until Loop" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
-        while ($false) {
+        while ($machName -notmatch $NewName) {
             Invoke-Logging -Message "Inside while Loop" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
             $NewName = "$Chassis-$DateName-$LastNumber"
             $LastNumber++
