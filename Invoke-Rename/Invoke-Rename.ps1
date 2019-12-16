@@ -106,6 +106,8 @@ function Invoke-Rename {
         Invoke-Logging -Message "Cleared Variable a" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
         #Grab the list of readable names.
         $machName = Get-Content -Path "$ScriptPath\machNames.txt"
+        #First official NewName
+        $NewName = "$Chassis-$DateName-$LastNumber"
         #Compare the name we created to the list of names from machNames.txt
         Invoke-Logging -Message "Starting do until Loop" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
         while ($machName -match $NewName) {
@@ -121,7 +123,7 @@ function Invoke-Rename {
 
         #Rename's computer no reboot / also does one last check to make sure all variables exist
         Invoke-Logging -Message "Autobot chose computer name - $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
-        Rename-Computer -NewName "$NewName"
+        Rename-Computer -NewName "$NewName" -Force
         Invoke-Logging -Message "Computer has been renamed to $NewName" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
 
 }
