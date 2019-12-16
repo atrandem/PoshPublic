@@ -70,7 +70,6 @@ else {
     else { 
         $Chassis = "DT"
         Invoke-Logging -Message "$env:COMPUTERNAME is a Desktop" -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName
-        "-Message $env:COMPUTERNAME is a Desktop -Severity Information -Log $script:Log -FunctionName $CurrentFunction -$PowershellScriptName" | Out-File "C:\users\test.txt"
     }
 
     #Grab the last two digits of the year the two digit month, example - 1912 (2019/December(12))
