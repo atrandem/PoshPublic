@@ -1,17 +1,17 @@
 <#
 .SYNOPSIS
-    Short description
+    Uninstall Adobe Reader
 .DESCRIPTION
-    Long description
+    This will uninstall adobe reader I took the information from https://www.reddit.com/r/PowerShell/comments/8h1s2u/powershell_script_to_uninstall_software/
+    and built a function out of it. You can pass the GUID or let it search the registry for it.
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    Invoke-AdobeReaderUninstall
 .INPUTS
     Inputs (if any)
 .OUTPUTS
     Output (if any)
 .NOTES
-    General notes
+    Credit goes to these fine people on reddit https://www.reddit.com/r/PowerShell/comments/8h1s2u/powershell_script_to_uninstall_software/
 #>
 
 function Invoke-AdobeReaderUninstall {
