@@ -30,7 +30,5 @@ function Invoke-AdobeReaderUninstall {
             Start-Process -FilePath msiexec -ArgumentList "/X $($AppID) /qn /norestart" -Wait -PassThru
         }
     }
-
-    
 }
 
