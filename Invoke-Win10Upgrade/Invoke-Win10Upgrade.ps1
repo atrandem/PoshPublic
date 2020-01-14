@@ -1,6 +1,7 @@
 <#
 .SYNOPSIS
     Updates Win 7 to Win 10 using the extracted contents from Win 10 iso.
+    Created By Aaron Trandem
 .DESCRIPTION
     This script updates Win 7 to Win 10 using the extracted contents from a Windows 10 iso. LanCache variable should be filled out to pull the files from
     It will, place these files locally and call the setup.exe. I highly recommend that you make sure that PowerShell 3.0 or higher is installed on the Win 7
