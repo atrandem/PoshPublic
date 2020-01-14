@@ -76,7 +76,7 @@ function Invoke-Rename {
         }
 
         #Grab the last two digits of the year the two digit month, example - 1912 (2019/December(12))
-        $DateName = Get-Date -Format "%y%M"
+        $DateName = Get-Date -UFormat "%y%m"
 
         # Starting with the number 1 as the last digit of the computer name.
         [int] $LastNumber = 1
