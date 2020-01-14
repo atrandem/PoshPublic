@@ -39,8 +39,8 @@ Function Get-Chassis
         {
             $isLaptop = $true
         }
-        $CheckNUC = Get-WmiObject Win32_ComputerSystem Manufacturer -ComputerName $Computer
-        if("Intel Corporation" -eq $CheckNUC){
+        $CheckNUC = Get-ComputerInfo -Property "CsManufacturer"
+        if($CheckNUC -contains "Intel"){
             $isNUC = $true
             $isLaptop = $false
         }
@@ -56,8 +56,8 @@ Function Get-Chassis
         {
             $isLaptop = $true
         }
-        $CheckNUC = Get-WmiObject Win32_ComputerSystem Manufacturer -ComputerName $Computer
-        if("Intel Corporation" -eq $CheckNUC){
+        $CheckNUC = Get-ComputerInfo -Property "CsManufacturer"
+        if($CheckNUC -contains "Intel"){
             $isNUC = $true
             $isLaptop = $false
         }
