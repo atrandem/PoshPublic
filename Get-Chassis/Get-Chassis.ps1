@@ -40,7 +40,7 @@ Function Get-Chassis
             $isLaptop = $true
         }
         $CheckNUC = Get-ComputerInfo -Property "CsManufacturer"
-        if($CheckNUC -contains "Intel"){
+        if($CheckNUC.CsManufacturer -like "Intel*"){
             $isNUC = $true
             $isLaptop = $false
         }
@@ -57,7 +57,7 @@ Function Get-Chassis
             $isLaptop = $true
         }
         $CheckNUC = Get-ComputerInfo -Property "CsManufacturer"
-        if($CheckNUC -contains "Intel"){
+        if($CheckNUC.CsManufacturer -like "Intel*"){
             $isNUC = $true
             $isLaptop = $false
         }
