@@ -25,43 +25,43 @@ Function Get-Chassis
         $Computer = $env:COMPUTERNAME
     )
 
-    $isLaptop = $false
-    $isNUC = $false
+    $script:isLaptop = $false
+    $script:isNUC = $false
 
     if (!([string]::IsNullOrEmpty($Computer))) {
         #The chassis is the physical container that houses the components of a computer. Check if the machine’s chasis type is 9.Laptop 10.Notebook 14.Sub-Notebook
         if(Get-WmiObject -Class win32_systemenclosure -ComputerName $Computer | Where-Object { $_.chassistypes -eq 9 -or $_.chassistypes -eq 10 -or $_.chassistypes -eq 14})
         { 
-            $isLaptop = $true
+            $script:isLaptop = $true
         }
         #Shows battery status , if true then the machine is a laptop.
         if(Get-WmiObject -Class win32_battery -ComputerName $Computer)
         {
-            $isLaptop = $true
+            $script:isLaptop = $true
         }
         $CheckNUC = Get-ComputerInfo -Property "CsManufacturer"
         if($CheckNUC.CsManufacturer -like "Intel*"){
-            $isNUC = $true
-            $isLaptop = $false
+            $script:isNUC = $true
+            $script:isLaptop = $false
         }
     }
     else {
         #The chassis is the physical container that houses the components of a computer. Check if the machine’s chasis type is 9.Laptop 10.Notebook 14.Sub-Notebook
         if(Get-WmiObject -Class win32_systemenclosure | Where-Object { $_.chassistypes -eq 9 -or $_.chassistypes -eq 10 -or $_.chassistypes -eq 14})
         { 
-            $isLaptop = $true
+            $script:isLaptop = $true
         }
         #Shows battery status , if true then the machine is a laptop.
         if(Get-WmiObject -Class win32_battery)
         {
-            $isLaptop = $true
+            $script:isLaptop = $true
         }
         $CheckNUC = Get-ComputerInfo -Property "CsManufacturer"
         if($CheckNUC.CsManufacturer -like "Intel*"){
-            $isNUC = $true
-            $isLaptop = $false
+            $script:isNUC = $true
+            $script:isLaptop = $false
         }
     }
-    $isLaptop
-    $isNUC
+    $script:isLaptop
+    $script:isNUC
 }
