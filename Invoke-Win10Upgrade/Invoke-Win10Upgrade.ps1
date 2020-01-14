@@ -1,11 +1,16 @@
 <#
 .SYNOPSIS
-    Short description
+    Updates Win 7 to Win 10 using the extracted contents from Win 10 iso.
 .DESCRIPTION
-    Long description
+    This script updates Win 7 to Win 10 using the extracted contents from a Windows 10 iso. LanCache variable should be filled out to pull the files from
+    It will, place these files locally and call the setup.exe. I highly recommend that you make sure that PowerShell 3.0 or higher is installed on the Win 7
+    machine. If you do not call LANcache it will look for a text file called "Lancache.txt" with the path to the files needed. This script does allow it to
+    reboot the computer when it's ready. I do use three other scripts, Invoke-Logging, Invoke-KasperskyUninstall and Invoke-AdobeReaderUninstall.  
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    Run with a manually entered Win 10 cache location:
+    Invoke-Win10Upgrade -LanCache "\\Path\To\Files"
+    Run using the LanCache.txt file for Win 10 cache location:
+    Invoke-Win10Upgrade
 .INPUTS
     Inputs (if any)
 .OUTPUTS
