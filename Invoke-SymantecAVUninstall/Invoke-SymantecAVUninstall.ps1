@@ -5,7 +5,7 @@
     This will uninstall adobe reader I took the information from https://www.reddit.com/r/PowerShell/comments/8h1s2u/powershell_script_to_uninstall_software/
     and built a function out of it. You can pass the GUID or let it search the registry for it.
 .EXAMPLE
-    Invoke-AdobeReaderUninstall
+    Invoke-SymantecAVUninstall
 .INPUTS
     Inputs (if any)
 .OUTPUTS
@@ -14,7 +14,7 @@
     Credit goes to these fine people on reddit https://www.reddit.com/r/PowerShell/comments/8h1s2u/powershell_script_to_uninstall_software/
 #>
 
-function Invoke-AdobeReaderUninstall {
+function Invoke-SymantecAVUninstall {
     param (
     [Parameter(Mandatory=$false)]
     [String[]]
