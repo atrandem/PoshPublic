@@ -14,7 +14,7 @@
     Credit goes to these fine people on reddit https://www.reddit.com/r/PowerShell/comments/8h1s2u/powershell_script_to_uninstall_software/
 #>
 
-function Invoke-SymantecAVUninstall {
+function Invoke-UninstallSymantec {
     param (
     [Parameter(Mandatory=$false)]
     [String[]]
@@ -31,4 +31,4 @@ function Invoke-SymantecAVUninstall {
         }
     }
 }
-Invoke-SymantecAVUninstall
+Invoke-UninstallSymantec
