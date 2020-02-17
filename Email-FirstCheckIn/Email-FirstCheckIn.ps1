@@ -55,7 +55,12 @@ function Invoke-EmailFirstCheckIn {
         $PWD
     )
 
-    $Password = "$PWD" | ConvertTo-SecureString -AsPlainText -Force
+    #Checks for Credential Manager Module
+    if (-not(Get-InstalledModule -Name CredentialManager)) {
+        Install-Module -Name CredentailManager -Force
+    }
+
+    $Creds = Get-StoredCredentials -Target "Send-Email"
 
     if ([string]::IsNullOrWhiteSpace($Attachment)) {
         Add-Type -Assembly "system.io.compression.filesystem"
