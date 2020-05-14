@@ -31,6 +31,9 @@ function Start-VmBuild {
     #check OS version
     $os_version = Get-Content .\os_version.txt
 
+    #check for type of server ie sql dc
+    $server_type = Get-Content .\server_type.txt
+
     #check for iso folder
     $iso_paths = @('C:\ISO', 'D:\ISO')
     foreach ($path in $iso_paths) {
@@ -51,12 +54,20 @@ function Start-VmBuild {
         }
     }
 
+    #check for Hyper-V folder
+
     if ([string]::IsNullOrWhiteSpace($full_iso_path)) {
         #log that path is emp
         $Host.Exit()
     }
     
+    #create c_drive vhdx
+    $vm_c_drive = -join ($vm_name,"_C.vhdx")
+    $vm_d_drive = -join ($vm_name,"_D.vhdx")
 
+
+
+    New-VM -Name $vm_name -MemoryStartupBytes 4GB -BootDevice CD -VHDPath $vm_c_drive  -Generation 2
 
 
 
