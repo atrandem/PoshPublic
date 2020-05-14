@@ -63,8 +63,6 @@ function Start-VmBuild {
     
     #create c_drive vhdx
     $vm_c_drive = -join ($vm_name,"_C.vhdx")
-    $vm_d_drive = -join ($vm_name,"_D.vhdx")
-
 
 
     New-VM -Name $vm_name -MemoryStartupBytes 4GB -BootDevice CD -VHDPath $vm_c_drive  -Generation 2
