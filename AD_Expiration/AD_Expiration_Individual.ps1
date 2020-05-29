@@ -16,41 +16,46 @@
 
 [CmdletBinding()]
 param (
-    [Parameter(ParameterSetName = 'ExpirationDate')]
+    [Parameter()]
     [datetime]
     $date = (Get-Date -UFormat "%m/%d/%Y"),
 
-    [Parameter(ParameterSetName = 'NotificationDates')]
-    [string]
-    $numbers = "1,7,14",
+    [Parameter()]
+    [array]
+    $expiration_numbers = "1,7,14",
 
-    [Parameter(ParameterSetName = 'IT')]
+    [Parameter()]
     [string]
-    $it_department = "your IT Department",
+    $it_department = "your IT department",
 
-    [Parameter(ParameterSetName = 'Phone')]
+    [Parameter()]
     [string]
-    $phone_number = "your IT Departments phone number",
+    $phone_number = "your IT department phone number",
 
     [Parameter(ParameterSetName = 'Test')]
     [string]
     $test = $true,
 
-    [Parameter(ParameterSetName ='Helpdesk')]
+    [Parameter()]
     [string]
-    $helpdesk_email = "Helpdesk@Company.com",
-    
-    [Parameter(ParameterSetName = 'From')]
-    [string]
-    $no_reply = "NoReply@Company.com",
+    $helpdesk_email = "helpdesk@company.com",
 
-    [Parameter(ParameterSetName ='SMTP',Mandatory = $true)]
+    
+    [Parameter()]
+    [string]
+    $internal_email = "nonticket@company.com",
+    
+    [Parameter()]
+    [string]
+    $no_reply = "NoReply@company.com",
+
+    [Parameter(Mandatory = $true)]
     [string]
     $smtp,
 
-    [Parameter(ParameterSetName ='Subject')]
+    [Parameter(Mandatory = $true)]
     [string]
-    $subject = "Password Expiration Notice"
+    $subject = "Password Expiration"
 )
 
 #imports the AD module, needed if this is not running on an AD server
@@ -73,16 +78,44 @@ function Invoke-Logging {
 
     $logdate = Get-Date -UFormat "%m-%d-%Y"
 
-    Add-Content -Path .\logs\PW_Expiration_$logdate.txt -Value "$Serverity $message"
+    Add-Content .\logs\PW_Expiration_$logdate.txt -Value "$Serverity $message"
 
 }
 
 
 
+#Get users with password that DO expire and are ENABLED / This also converts the PW expiration from ticks to an actual date
+$Users = Get-ADUser -filter {Enabled -eq $True -and PasswordNeverExpires -eq $False} -Properties "Name", "mail", "msDS-UserPasswordExpiryTimeComputed" | Select-Object "Name", "mail", @{Name="ExpiryDate";Expression={[datetime]::FromFileTime($_."msDS-UserPasswordExpiryTimeComputed").ToShortDateString() | Get-Date }}
 
-#Body of the email
-$Body = @"
-Hello $UserName. This is $it_department letting you know that your Windows password will expire on the following date: $Expirydate.
+#split array into individual numbers
+$expiration_numbers = $expiration_numbers.Split(',').split(' ') 
+
+
+#foreach loop to go through all users and 
+foreach ($User in $Users) {
+
+    $UserName = $User.Name
+    $Expirydate = $User.ExpiryDate
+    $email = $User.mail
+    #Log Username that its checking it
+    Invoke-Logging -message "Checking $UserName"
+    
+    #foreach loop to go through numbers of expiration dates
+    foreach ($num in $expiration_numbers) {
+        Write-Output "$num"
+        
+        #if statement to check if the number of days before pw expiration hits, send email
+        if ($date - $Expirydate -eq $num) {
+            
+            Invoke-Logging -message "$UserName EXPIRES in $num days, sending email to user at $email"
+            if ($Test -eq $false) {
+
+            #make date without time
+            $just_date = $Expirydate | Get-Date -UFormat "%m/%d/%Y"
+
+            #Body of the email
+            $Body = @"
+Hello $UserName. This is $it_department letting you know that your Windows password will expire on the following date: $just_date.
 If you let your password expire, you will temporarily lose access to your PC desktop, email (including phone email), file access and more.
     
 To change your password, 
@@ -95,53 +128,20 @@ If you have any questions, please email $helpdesk_email or feel free to call us 
 
 - $it_department Team    
 "@
-
-
-
-#Get users with password that DO expire and are ENABLED / This also converts the PW expiration from ticks to an actual date
-$Users = Get-ADUser -filter {Enabled -eq $True -and PasswordNeverExpires -eq $False} -Properties "Name", "mail", "msDS-UserPasswordExpiryTimeComputed" | Select-Object "Name", "mail", @{Name="ExpiryDate";Expression={[datetime]::FromFileTime($_."msDS-UserPasswordExpiryTimeComputed").ToShortDateString() | Get-Date }}
-
-#split variable numbers so it just becomes a list
-$numbers = $numbers -split ','
-
-#foreach loop to go through all users and 
-foreach ($User in $Users) {
-
-    $UserName = $User.Name
-    $Expirydate = $User.ExpiryDate
-    $email = $User.mail
-    #Log Username that its checking it
-    Invoke-Logging "Checking $UserName"
-    
-    #foreach loop to go through numbers of expiration dates
-    foreach ($num in $numbers) {
-
-        #have to turn num from a string to an int
-        $num = [int] $num
-        
-        #if statement to check if the number of days before pw expiration hits, send email
-        if ($date - $Expirydate -eq $num) {
-            
-            Invoke-Logging "$UserName EXPIRES in $num days, sending email to user at $email" -Severity "WARNING"
-            if (!($Test)) {
-                #Send-MailMessage -To $email -From $no_reply -Bcc $helpdesk_email -Subject $subjet -Body $Body -SmtpServer $smtp
-                Write-Host "inside If, this would send ane email to $username to $email"
+                Send-MailMessage -To "atrandem@superiormanagedit.com" -From $no_reply -Bcc "atrandem@superiormanagedit.com" -Subject $subject -Body $Body -SmtpServer $smtp -Verbose
+                #Write-Host "inside If, this would send ane email to $username to $email"
             }
             else {
-                Invoke-Logging "$UserName - $email - $Expirydate - $no_reply - $helpdesk_email - $num - $it_department - $phone_number - $date "
+                Invoke-Logging -message "$UserName - $email - $Expirydate - $no_reply - $helpdesk_email - $num - $it_department - $phone_number - $date - $smtp"
             }
 
         }
         else {
             #Log that it did not meet the $num requirement
-            Invoke-Logging "$Username Does Not Expire in $num days"
+            Invoke-Logging -message "$Username Does Not Expire in $num days"
 
         }
 
     }
 
 }
-
-
-
-
