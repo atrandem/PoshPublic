@@ -48,7 +48,7 @@ param (
     [string]
     $smtp,
 
-    [Parameter(ParameterSetName ='SMTP',Mandatory = $true)]
+    [Parameter(ParameterSetName ='Subject')]
     [string]
     $subject = "Password Expiration Notice"
 )
@@ -101,8 +101,8 @@ If you have any questions, please email $helpdesk_email or feel free to call us 
 #Get users with password that DO expire and are ENABLED / This also converts the PW expiration from ticks to an actual date
 $Users = Get-ADUser -filter {Enabled -eq $True -and PasswordNeverExpires -eq $False} -Properties "Name", "mail", "msDS-UserPasswordExpiryTimeComputed" | Select-Object "Name", "mail", @{Name="ExpiryDate";Expression={[datetime]::FromFileTime($_."msDS-UserPasswordExpiryTimeComputed").ToShortDateString() | Get-Date }}
 
-#sets the $numbers variable to an integer(s) to allow for comparing numbers
-$numbers = [int[]]($numbers -split ',')
+#split variable numbers so it just becomes a list
+$numbers = $numbers -split ','
 
 #foreach loop to go through all users and 
 foreach ($User in $Users) {
@@ -115,6 +115,9 @@ foreach ($User in $Users) {
     
     #foreach loop to go through numbers of expiration dates
     foreach ($num in $numbers) {
+
+        #have to turn num from a string to an int
+        $num = [int] $num
         
         #if statement to check if the number of days before pw expiration hits, send email
         if ($date - $Expirydate -eq $num) {
