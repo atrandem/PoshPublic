@@ -120,7 +120,7 @@ Invoke-AutotaskModule
 $StatusName = @("New","10% Complete","25% Complete","50% Complete","75% Complete","90% Complete","Awaiting Parts","Awaiting Response","Follow Up","Help Desk","Postponed","To Be Assigned","Waiting Customer")
 
 Invoke-Logging -message "$ComputerName : Searching for Title: $ComputerName is offline"
-do {
+:loop while ($loopCount -ne $LoopLimit) {
     
     Invoke-Logging -message "$ComputerName : Starting Do Loop: $LoopCount"
 
@@ -139,7 +139,7 @@ do {
             Invoke-Logging -message "$ComputerName : Offline Ticket Ticket Number: $TicketNumber"
 
             #break the loop
-            Break
+            Break loop
         }
     }
 
@@ -148,10 +148,11 @@ do {
         #we are going to exit the program after logging and sending an email to Script Admins
         Invoke-Logging -message "$ComputerName : Could not Find a ticket number, Loop Count: $LoopCount"
 
+        $LoopCount++
         Start-Sleep -Seconds $RetryTimer
 
     }
-} while ($LoopCount -eq $LoopLimit)
+}
 
 
 #Check if the loop count was exceeded
