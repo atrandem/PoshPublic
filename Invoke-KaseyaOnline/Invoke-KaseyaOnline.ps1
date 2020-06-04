@@ -151,7 +151,7 @@ do {
         Start-Sleep -Seconds $RetryTimer
 
     }
-} while ($LoopCount -eq $LoopLimit -or [string]::IsNullOrWhiteSpace($TicketLookup))
+} while ($LoopCount -eq $LoopLimit)
 
 
 #Check if the loop count was exceeded
