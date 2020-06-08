@@ -145,8 +145,10 @@ Invoke-Logging -message "$ComputerName : Searching for Title: $ComputerName is o
 
     #if all Ticketnumber is Null or Whitespace after loop Create a ticket and notify Kaseya Admins to check integrity of ticket
     if ([string]::IsNullOrWhiteSpace($TicketLookup)) {
+        #Get Current Time for logging purposes
+        $CurrentTime = Get-Date -UFormat %T
         #we are going to exit the program after logging and sending an email to Script Admins
-        Invoke-Logging -message "$ComputerName : Could not Find a ticket number, Loop Count: $LoopCount"
+        Invoke-Logging -message "$ComputerName : Could not Find a ticket number, Loop Count: $LoopCount. Current Time: $CurrentTime"
 
         $LoopCount++
         Start-Sleep -Seconds $RetryTimer
