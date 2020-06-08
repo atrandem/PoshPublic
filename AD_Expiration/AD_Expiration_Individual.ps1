@@ -32,7 +32,7 @@ param (
     [string]
     $phone_number = "your IT department phone number",
 
-    [Parameter(ParameterSetName = 'Test')]
+    [Parameter()]
     [string]
     $test = $true,
 
