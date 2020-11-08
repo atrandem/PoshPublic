@@ -15,7 +15,6 @@
 #>
 
 
-
 [CmdletBinding()]
 param (
     [Parameter(Mandatory = $true)]
@@ -34,23 +33,60 @@ param (
 
     [Parameter(Mandatory = $true)]
     [int]
-    $RAM,
+    $CpuCount = 2,
 
     [Parameter(Mandatory = $true)]
-    [array]
-    $DriveSize,
+    [int]
+    $RamSize = 4,
+
+    [Parameter(Mandatory = $true)]
+    [int]
+    $DriveSize = 120,
 
     [Parameter()]
     [string]
-    $VmSwitch
+    $VmSwitch,
+
+    [Parameter()]
+    [string]
+    $Generation = 2
 )
 
-   
-    #create c_drive vhdx
+    #create C drive vhdx
     $VmCDrive = -join ($VmName,"_C.vhdx")
 
-    New-VM -Name $VmName -MemoryStartupBytes "$RAM""GB" -BootDevice CD -VHDPath $VmCDrive  -Generation 2 -SwitchName $VmSwitch
+    #multiple GB of RAM by 1,073,741,824 (bytes)
+    $RAM = $RamSize * 1073741824
 
-    #Attach ISO file
+    #mutliple GB of Drive size by 1,073,741,824 (bytes)
+    $VhdSize = $DriveSize * 1073741824
+
+    #Haven't found a good way to use the default vhd path
+    try {
+        New-VM -Name $VmName -MemoryStartupBytes $RAM -NewVHDPath $VmCDrive -NewVHDSizeBytes $VhdSize -Generation $Generation -SwitchName $VmSwitch
+    }
+    catch {
+        "An Error Occured"
+    }
+
+    #Set VM to boot to CD and attach ISO file
     #Add-VMDvdDrive -VMName $VmName -Path $IsoPath
-    
+    #Set-VMFirmware -VM $VmName -FirstBootDevice $IsoPath
+
+    #Set CPU Count
+    try {
+        Set-VM $VmName -ProcessorCount $CpuCount
+
+    }
+    catch {
+        "An Error Occured"
+    }
+
+     #Set Dynamic RAM (Currently only to false)
+     try {
+        Set-VMMemory $VmName -DynamicMemoryEnabled $false
+    }
+    catch {
+        "An Error Occured"
+    }
+
