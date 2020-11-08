@@ -16,57 +16,41 @@
 
 
 
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true)]
+    [string]
+    $VmName,
 
-function Start-VmBuild {
-    <#
-    param (
-        OptionalParameters
-    )
+    [Parameter(Mandatory = $true)]
+    [string]
+    $OsVersion,
+
+    <#future?
+    [Parameter(Mandatory = $true)]
+    [int]
+    $NumberOfDrives,
     #>
 
-    #create vm name
-        #create  name from a file created by user or RMM tool
-    $vm_name = Get-Content .\vm_name.txt
+    [Parameter(Mandatory = $true)]
+    [int]
+    $RAM,
 
-    #check OS version
-    $os_version = Get-Content .\os_version.txt
+    [Parameter(Mandatory = $true)]
+    [array]
+    $DriveSize,
 
-    #check for type of server ie sql dc
-    $server_type = Get-Content .\server_type.txt
+    [Parameter()]
+    [string]
+    $VmSwitch
+)
 
-    #check for iso folder
-    $iso_paths = @('C:\ISO', 'D:\ISO')
-    foreach ($path in $iso_paths) {
-        $test_iso_path = Test-Path -Path $iso_path
-        if ($test_iso_path) {
-            $iso_path = $test_iso_path
-
-            #get iso name
-            $iso_name = Get-ChildItem -Name *$os_version* -Include *.iso
-
-            #put together for path
-            $full_iso_path = "$test_iso_path\$iso_name"
-
-            break
-        }
-        else {
-            #log that one or both did not work
-        }
-    }
-
-    #check for Hyper-V folder
-
-    if ([string]::IsNullOrWhiteSpace($full_iso_path)) {
-        #log that path is emp
-        $Host.Exit()
-    }
-    
+   
     #create c_drive vhdx
-    $vm_c_drive = -join ($vm_name,"_C.vhdx")
+    $VmCDrive = -join ($VmName,"_C.vhdx")
 
+    New-VM -Name $VmName -MemoryStartupBytes "$RAM""GB" -BootDevice CD -VHDPath $VmCDrive  -Generation 2 -SwitchName $VmSwitch
 
-    New-VM -Name $vm_name -MemoryStartupBytes 4GB -BootDevice CD -VHDPath $vm_c_drive  -Generation 2
-
-
-
-}
+    #Attach ISO file
+    #Add-VMDvdDrive -VMName $VmName -Path $IsoPath
+    
