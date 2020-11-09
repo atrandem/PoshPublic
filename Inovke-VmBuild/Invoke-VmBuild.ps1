@@ -14,7 +14,6 @@
     General notes
 #>
 
-
 [CmdletBinding()]
 param (
     [Parameter(Mandatory = $true)]
@@ -51,6 +50,8 @@ param (
     [string]
     $Generation = 2
 )
+    #Set Error Action to stop.
+    $ErrorActionPreference = "Stop"
 
     #create C drive vhdx
     $VmCDrive = -join ($VmName,"_C.vhdx")
@@ -65,8 +66,14 @@ param (
     try {
         New-VM -Name $VmName -MemoryStartupBytes $RAM -NewVHDPath $VmCDrive -NewVHDSizeBytes $VhdSize -Generation $Generation -SwitchName $VmSwitch
     }
+    catch [System.Management.Automation.CommandNotFoundException] {
+        Write-Host "This is not a Hyper-v Server, please check if the role is installed"
+        Write-Warning $Error[0]
+        exit
+    }
     catch {
-        "An Error Occured"
+        Write-Warning $Error[0]
+        exit
     }
 
     #Set VM to boot to CD and attach ISO file
@@ -79,14 +86,15 @@ param (
 
     }
     catch {
-        "An Error Occured"
+        Write-Warning $Error[0]
+        exit
     }
 
-     #Set Dynamic RAM (Currently only to false)
+     #Set Dynamic RAM (Currently only to false, future to give the option)
      try {
         Set-VMMemory $VmName -DynamicMemoryEnabled $false
     }
     catch {
-        "An Error Occured"
+        Write-Warning $Error[0]
+        exit
     }
-
