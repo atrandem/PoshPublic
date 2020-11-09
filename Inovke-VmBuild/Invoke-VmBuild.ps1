@@ -1,8 +1,10 @@
 <#
 .SYNOPSIS
-    Short description
+    Creates a Vitural machine of your choice of OS to attach to.
 .DESCRIPTION
-    Long description
+    This creates a virtual machine that has the OS ISO attached. This will utilize another script
+    that will search for the OS depending on your choice. If nothing is attached, it will not attach
+    any ISO.
 .EXAMPLE
     PS C:\> <example usage>
     Explanation of what the example does
@@ -20,7 +22,7 @@ param (
     [string]
     $VmName,
 
-    [Parameter(Mandatory = $true)]
+    [Parameter()]
     [string]
     $OsVersion,
 
@@ -40,11 +42,13 @@ param (
 
     [Parameter(Mandatory = $true)]
     [int]
-    $DriveSize = 120,
+    $DriveSize = 200,
 
+    <#future
     [Parameter()]
     [string]
     $VmSwitch,
+    #>
 
     [Parameter()]
     [string]
@@ -64,7 +68,7 @@ param (
 
     #Haven't found a good way to use the default vhd path
     try {
-        New-VM -Name $VmName -MemoryStartupBytes $RAM -NewVHDPath $VmCDrive -NewVHDSizeBytes $VhdSize -Generation $Generation -SwitchName $VmSwitch
+        New-VM -Name $VmName -MemoryStartupBytes $RAM -NewVHDPath $VmCDrive -NewVHDSizeBytes $VhdSize -Generation $Generation
     }
     catch [System.Management.Automation.CommandNotFoundException] {
         Write-Host "This is not a Hyper-v Server, please check if the role is installed"
