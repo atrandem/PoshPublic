@@ -56,7 +56,7 @@ function Invoke-Logging {
     Write-Output "$(Get-Date) - $PowershellScriptName - $FunctionName - $Severity - $Message" | Out-File -FilePath "$Log" -Append -Encoding ascii
     # Use the following example when you want to log something.
     # Invoke-Logging -Message "First Name - $script:FirstName" -Severity Information -FunctionName $CurrentFunction -PowershellScriptName $PowershellScriptName -Log $Log
-    # Use the following command to get the current function you are in.
+    # Use the following command(s) to get the current function you are in or you can add these variables into your script params.
     #$CurrentFunction = ($MyInvocation.MyCommand)
     #Use this to get the script name for log name purposes
     #$PowershellScriptName = [io.path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)
