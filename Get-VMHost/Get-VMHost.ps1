@@ -25,7 +25,7 @@ param (
 
     [Parameter()]
     [String]
-    $Log = "C:\Scripts\Logs"
+    $LogPath = "C:\Scripts\Logs"
 )
 
 #script block if reaching out to VM
@@ -54,7 +54,7 @@ if ($VMName) {
         $result | Out-File -FilePath "$Log\VM-Host.txt"
         }
     catch {
-        $Output = "Connection Error" | Out-File -FilePath "$Log\VM-Host.txt"
+        $Output = "Connection Error" | Out-File -FilePath "$LogPath\VM-Host.txt"
     }
 }
 else {
@@ -65,7 +65,7 @@ else {
     else {
         $Output = "VMware or No Key"
     }
-    $Output | Out-File -FilePath "$Log\VM-Host.txt"
+    $Output | Out-File -FilePath "$LogPath\VM-Host.txt"
 }
 
 
