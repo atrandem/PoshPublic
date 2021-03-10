@@ -59,7 +59,7 @@ if ($VMName) {
 }
 else {
     if (Test-Path -Path 'HKLM:\SOFTWARE\Microsoft\Virtual Machine\Guest\Parameters') {
-        Write-Host "Inside 2nd IF"
+        
         $Output = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Virtual Machine\Guest\Parameters\' | Select-Object 'PhysicalHostName' | Format-Table -HideTableHeaders | Out-String).Trim()        
     }
     else {
