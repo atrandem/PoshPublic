@@ -3,7 +3,7 @@
     Installs MXIE
 .DESCRIPTION
     This will check if MXIE is installed, uninstall it and then install the new version.
-    This will remove the signin settings in MXIE
+    
 .EXAMPLE
     .\Start-MxieUpdate.ps1 -msi 'PathToMSI.msi"
 .INPUTS
