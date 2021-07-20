@@ -17,22 +17,6 @@
 
 [CmdletBinding()]
 param (
-    [Parameter()]
-    [switch]
-    $Disable,
-
-    [Parameter()]
-    [switch]
-    $Remove,
-
-    [Parameter()]
-    [switch]
-    $NoClean,
-
-    [Parameter()]
-    [string]
-    $LogPath = 'C:\Scripts\Logs\AD-Reports',
-
     [Parameter(ParameterSetName = "SendMail")]
     [switch]
     $SendMail,
@@ -51,7 +35,23 @@ param (
 
     [Parameter(ParameterSetName = "SendMail")]
     [string]
-    $Port = "25"
+    $Port = "25",
+
+    [Parameter()]
+    [switch]
+    $Disable,
+
+    [Parameter()]
+    [switch]
+    $Remove,
+
+    [Parameter()]
+    [switch]
+    $NoClean,
+
+    [Parameter()]
+    [string]
+    $LogPath = 'C:\Scripts\Logs\AD-Reports'
 
 )
 
