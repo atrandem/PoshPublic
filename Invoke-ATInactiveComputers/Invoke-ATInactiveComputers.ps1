@@ -37,15 +37,15 @@ param (
     [switch]
     $SendMail,
 
-    [Parameter(ParameterSetName = "SendMail", Mandatory = $true)]
+    [Parameter(ParameterSetName = "SendMail")]
     [string]
     $SMTPServer,
 
-    [Parameter(ParameterSetName = "SendMail", Mandatory = $true)]
+    [Parameter(ParameterSetName = "SendMail")]
     [string]
     $From,
 
-    [Parameter(ParameterSetName = "SendMail", Mandatory = $true)]
+    [Parameter(ParameterSetName = "SendMail")]
     [string]
     $Recipients,
 
