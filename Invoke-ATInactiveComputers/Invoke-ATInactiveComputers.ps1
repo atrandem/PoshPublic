@@ -33,19 +33,23 @@ param (
     [string]
     $LogPath = 'C:\Scripts\Logs\AD-Reports',
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(ParameterSetName = "SendMail")]
+    [switch]
+    $SendMail,
+
+    [Parameter(ParameterSetName = "SendMail", Mandatory = $true)]
     [string]
     $SMTPServer,
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(ParameterSetName = "SendMail", Mandatory = $true)]
     [string]
     $From,
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(ParameterSetName = "SendMail", Mandatory = $true)]
     [string]
     $Recipients,
 
-    [Parameter()]
+    [Parameter(ParameterSetName = "SendMail")]
     [string]
     $Port = "25"
 
@@ -64,7 +68,7 @@ $Time90 = (Get-Date).Adddays(-($90DaysInactive))
 $90DayComp = "$LogPath\90-DayInactiveComputers.csv"
 
 #SMTP Variables
-$Subject = "Inactive Computers"
+$Subject = "$env:USERDOMAIN Inactive Computers"
 $Body = @"
 Attached is a report of Computers that are 60 days (enabled) and 90 days (disabled) old.
 
@@ -123,7 +127,9 @@ if ($Remove) {
     }
 }
 #Send Email to IT Contact
-Send-MailMessage -From $From -To $Recipients -Body $Body -Subject $Subject -SmtpServer $SMTPServer -Attachments $60DayComp,$90DayComp -Port $Port
+if ($SendMail) {
+    Send-MailMessage -From $From -To $Recipients -Body $Body -Subject $Subject -SmtpServer $SMTPServer -Attachments $60DayComp,$90DayComp -Port $Port   
+}
 
 #Clean up - Because its important!
 if (!($NoClean)) {
