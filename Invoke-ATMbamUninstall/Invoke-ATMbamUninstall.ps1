@@ -22,7 +22,7 @@ param (
 	$Log = "C:Scripts\Logs\MbamUninstallLog.txt"
 )
 
-"$env:COMPUTERNAME : Beginning search\uninstall of Malwarebytes"
+"$env:COMPUTERNAME : Beginning search\uninstall of Malwarebytes" | Out-File $Log
 
 $MbAMCheck = (Resolve-Path -Path C:\Prog*\Malw*).Path
 $MbAMCheck += (Resolve-Path -Path C:\Prog*\Malw*\Ant*).Path
