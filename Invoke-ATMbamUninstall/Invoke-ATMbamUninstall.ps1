@@ -46,7 +46,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 
 	}
 	
-	if ((Test-Path -Path "C:\Program Files (x86)\Malwarebytes' Anti-Malware\unins000.exe") -eq $true)
+	elseif ((Test-Path -Path "C:\Program Files (x86)\Malwarebytes' Anti-Malware\unins000.exe") -eq $true)
 	{
 		"Found MBAM in: C:\Program Files (x86)\Malwarebytes' Anti-Malware\unins000.exe" | Out-File $Log -Append
 		Start-Process -FilePath "C:\Program Files (x86)\Malwarebytes' Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
@@ -59,7 +59,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		}
 	}
 	
-	if ((Test-Path -Path "C:\Program Files\Malwarebytes Anti-Malware\unins000.exe") -eq $true)
+	elseif ((Test-Path -Path "C:\Program Files\Malwarebytes Anti-Malware\unins000.exe") -eq $true)
 	{
 		"Found MBAM in: C:\Program Files\Malwarebytes Anti-Malware\unins000.exe" | Out-File $Log -Append
 		Start-Process -FilePath "C:\Program Files\Malwarebytes Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
@@ -72,7 +72,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		}
 	}
 	
-	if ((Test-Path -Path "C:\Program Files (x86)\Malwarebytes Anti-Malware\unins000.exe") -eq $true)
+	elseif ((Test-Path -Path "C:\Program Files (x86)\Malwarebytes Anti-Malware\unins000.exe") -eq $true)
 	{
 		"Found MBAM in: C:\Program Files (x86)\Malwarebytes Anti-Malware\unins000.exe" | Out-File $Log -Append
 		Start-Process -FilePath "C:\Program Files (x86)\Malwarebytes Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
@@ -85,7 +85,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		}
 	}
 	
-	if ((Test-Path -Path "C:\Program Files\Malwarebytes\Anti-Malware\unins000.exe") -eq $true)
+	elseif ((Test-Path -Path "C:\Program Files\Malwarebytes\Anti-Malware\unins000.exe") -eq $true)
 	{
 		"Found MBAM in: C:\Program Files\Malwarebytes\Anti-Malware\unins000.exe" | Out-File $Log -Append
 		Start-Process -FilePath "C:\Program Files\Malwarebytes\Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
@@ -98,7 +98,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		}		
 	}
 	
-	if ((Test-Path -Path "C:\Program Files (x86)\Malwarebytes\Anti-Malware\unins000.exe") -eq $true)
+	elseif ((Test-Path -Path "C:\Program Files (x86)\Malwarebytes\Anti-Malware\unins000.exe") -eq $true)
 	{
 		"Found MBAM in: C:\Program Files\Malwarebytes' Anti-Malware\unins000.exe" | Out-File $Log -Append
 		Start-Process -FilePath "C:\Program Files (x86)\Malwarebytes\Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
@@ -111,7 +111,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		}		
 	}
 	
-	if ((Test-Path -Path "C:\Program Files (x86)\Malwarebytes\Anti-Malware\mbuns.exe") -eq $true)
+	elseif ((Test-Path -Path "C:\Program Files (x86)\Malwarebytes\Anti-Malware\mbuns.exe") -eq $true)
 	{
 		"Found MBAM in: C:\Program Files\Malwarebytes' Anti-Malware\unins000.exe" | Out-File $Log -Append
 		Start-Process -FilePath "C:\Program Files (x86)\Malwarebytes\Anti-Malware\mbuns.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
@@ -124,7 +124,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		}		
 	}
 	
-	if ((Test-Path -Path "C:\Program Files\Malwarebytes\Anti-Malware\mbuns.exe") -eq $true)
+	elseif ((Test-Path -Path "C:\Program Files\Malwarebytes\Anti-Malware\mbuns.exe") -eq $true)
 	{
 		"Found MBAM in: C:\Program Files\Malwarebytes' Anti-Malware\unins000.exe" | Out-File $Log -Append
 		Start-Process -FilePath "C:\Program Files\Malwarebytes\Anti-Malware\mbuns.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
@@ -135,6 +135,9 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		else {
 			"MBAM has SUCCESSFULLY uninstalled" | Out-File $Log -Append
 		}		
+	}
+	else {
+		"Malwarebytes is installed, but couldn't identify the uninstaller. Contact your Centralised Services specialist." | Out-File $Log -Append
 	}
 }
 else
