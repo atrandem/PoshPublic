@@ -38,7 +38,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		Start-Process -FilePath "C:\Program Files\Malwarebytes' Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
 		#Checking that its been uninstalled. Path may still exist and 2 files would be hanging around.
 		if (Test-Path -Path "C:\Program Files\Malwarebytes' Anti-Malware\mbam.exe") {
-			"MBAM was FAILED uninstalled, please check manually" | Out-File $Log -Append
+			"MBAM has FAILED uninstalled, please check manually" | Out-File $Log -Append
 		}
 		else {
 			"MBAM has SUCCESSFULLY uninstalled" | Out-File $Log -Append
@@ -52,7 +52,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		Start-Process -FilePath "C:\Program Files (x86)\Malwarebytes' Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
 		#Checking that its been uninstalled. Path may still exist and 2 files would be hanging around.
 		if (Test-Path -Path "C:\Program Files (x86)\Malwarebytes' Anti-Malware\mbam.exe") {
-			"MBAM was FAILED uninstalled, please check manually" | Out-File $Log -Append
+			"MBAM has FAILED uninstalled, please check manually" | Out-File $Log -Append
 		}
 		else {
 			"MBAM has SUCCESSFULLY uninstalled" | Out-File $Log -Append
@@ -65,7 +65,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		Start-Process -FilePath "C:\Program Files\Malwarebytes Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
 		#Checking that its been uninstalled. Path may still exist and 2 files would be hanging around.
 		if (Test-Path -Path "C:\Program Files\Malwarebytes Anti-Malware\mbam.exe") {
-			"MBAM was FAILED uninstalled, please check manually" | Out-File $Log -Append
+			"MBAM has FAILED uninstalled, please check manually" | Out-File $Log -Append
 		}
 		else {
 			"MBAM has SUCCESSFULLY uninstalled" | Out-File $Log -Append
@@ -78,7 +78,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		Start-Process -FilePath "C:\Program Files (x86)\Malwarebytes Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
 		#Checking that its been uninstalled. Path may still exist and 2 files would be hanging around.
 		if (Test-Path -Path "C:\Program Files (x86)\Malwarebytes Anti-Malware\mbam.exe") {
-			"MBAM was FAILED uninstalled, please check manually" | Out-File $Log -Append
+			"MBAM has FAILED uninstalled, please check manually" | Out-File $Log -Append
 		}
 		else {
 			"MBAM has SUCCESSFULLY uninstalled" | Out-File $Log -Append
@@ -91,7 +91,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		Start-Process -FilePath "C:\Program Files\Malwarebytes\Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
 		#Checking that its been uninstalled. Path may still exist and 2 files would be hanging around.
 		if (Test-Path -Path "C:\Program Files\Malwarebytes\Anti-Malware\mbam.exe") {
-			"MBAM was FAILED uninstalled, please check manually" | Out-File $Log -Append
+			"MBAM has FAILED uninstalled, please check manually" | Out-File $Log -Append
 		}
 		else {
 			"MBAM has SUCCESSFULLY uninstalled" | Out-File $Log -Append
@@ -104,7 +104,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		Start-Process -FilePath "C:\Program Files (x86)\Malwarebytes\Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
 		#Checking that its been uninstalled. Path may still exist and 2 files would be hanging around.
 		if (Test-Path -Path "C:\Program Files (x86)\Malwarebytes\Anti-Malware\mbam.exe") {
-			"MBAM was FAILED uninstalled, please check manually" | Out-File $Log -Append
+			"MBAM has FAILED uninstalled, please check manually" | Out-File $Log -Append
 		}
 		else {
 			"MBAM has SUCCESSFULLY uninstalled" | Out-File $Log -Append
@@ -116,7 +116,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		Start-Process -FilePath "C:\Program Files (x86)\Malwarebytes\Anti-Malware\unins001.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
 		#Checking that its been uninstalled. Path may still exist and 2 files would be hanging around.
 		if (Test-Path -Path "C:\Program Files (x86)\Malwarebytes\Anti-Malware\mbam.exe") {
-			"MBAM was FAILED uninstalled, please check manually" | Out-File $Log -Append
+			"MBAM has FAILED uninstalled, please check manually" | Out-File $Log -Append
 		}
 		else {
 			"MBAM has SUCCESSFULLY uninstalled" | Out-File $Log -Append
@@ -128,7 +128,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		Start-Process -FilePath "C:\Program Files\Malwarebytes\Anti-Malware\unins000.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
 		#Checking that its been uninstalled. Path may still exist and 2 files would be hanging around.
 		if (Test-Path -Path "C:\Program Files\Malwarebytes\Anti-Malware\mbam.exe") {
-			"MBAM was FAILED uninstalled, please check manually" | Out-File $Log -Append
+			"MBAM has FAILED uninstalled, please check manually" | Out-File $Log -Append
 		}
 		else {
 			"MBAM has SUCCESSFULLY uninstalled" | Out-File $Log -Append
@@ -141,7 +141,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		Start-Process -FilePath "C:\Program Files (x86)\Malwarebytes\Anti-Malware\mbuns.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
 		#Checking that its been uninstalled. Path may still exist and 2 files would be hanging around.
 		if (Test-Path -Path "C:\Program Files (x86)\Malwarebytes\Anti-Malware\mbam.exe") {
-			"MBAM was FAILED uninstalled, please check manually" | Out-File $Log -Append
+			"MBAM has FAILED uninstalled, please check manually" | Out-File $Log -Append
 		}
 		else {
 			"MBAM has SUCCESSFULLY uninstalled" | Out-File $Log -Append
@@ -154,7 +154,7 @@ if (!([string]::IsNullOrEmpty($MbAMCheck)))
 		Start-Process -FilePath "C:\Program Files\Malwarebytes\Anti-Malware\mbuns.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
 		#Checking that its been uninstalled. Path may still exist and 2 files would be hanging around.
 		if (Test-Path -Path "C:\Program Files\Malwarebytes\Anti-Malware\mbam.exe") {
-			"MBAM was FAILED uninstalled, please check manually" | Out-File $Log -Append
+			"MBAM has FAILED uninstalled, please check manually" | Out-File $Log -Append
 		}
 		else {
 			"MBAM has SUCCESSFULLY uninstalled" | Out-File $Log -Append
