@@ -15,20 +15,20 @@
 .NOTES
     Created By Aaron Trandem
 #>
-
+function Test-Swtich {
 [CmdletBinding(DefaultParameterSetName='None')]
 param (
-    [Parameter(Mandatory=$true, ParameterSetName='Install')]
-    [Parameter(Mandatory=$true, ParameterSetName='Uninstall')]
+    [Parameter(Mandatory=$false, ParameterSetName='Install')]
+    [Parameter(Mandatory=$false, ParameterSetName='Uninstall')]
     [string[]]
-    $Path,
+    $Path = @($PSScriptRoot),
 
     [Parameter(Mandatory=$true, ParameterSetName='Install')]
-    [string[]]
+    [switch]
     $Install,
 
     [Parameter(Mandatory=$true, ParameterSetName='Uninstall')]
-    [string[]]
+    [switch]
     $Uninstall
 )
 
@@ -43,5 +43,5 @@ if ($PSCmdlet.ParameterSetName -eq 'Uninstall') {
     Write-Output "Uninstalling with path: $Path"
     Start-Process -FilePath "$Path\DattoFileProtect.exe" -ArgumentList "/uninstall /quiet /norestart" -Wait
 }
-
+}
 #End
